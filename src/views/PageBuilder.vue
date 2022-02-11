@@ -710,13 +710,13 @@ export default {
         overflow: hidden scroll;
     }
     .right {
-        width: 20%;
+        width: 19%;
         background: #FCFCFC;
         border-left: #F0F0F0 1px solid;
         box-shadow: #F0F0F0 -2px 2px 8px;
         overflow: hidden scroll;
         text-align: left;
-        padding: 10px 1%;
+        padding: 10px 2% 10px 1%;
     }
     .right p {
         text-align: center;

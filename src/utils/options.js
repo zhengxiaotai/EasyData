@@ -16,7 +16,7 @@ export function DefaultBar() {
         xAxis: {
             type: 'category', 
             axisTick: { show: false }, 
-            // axisLabel: { show: false }, 
+            axisLabel: { show: true }, 
             splitLine: { show: false }, 
             data: ['a', 'b', 'c', 'd', 'e']
         }, 
@@ -54,7 +54,7 @@ export function DefaultLine() {
         xAxis: {
             type: 'category', 
             axisTick: { show: false }, 
-            axisLabel: { show: false }, 
+            axisLabel: { show: true }, 
             splitLine: { show: false }, 
             data: ['a', 'b', 'c', 'd', 'e']
         }, 
