@@ -16,7 +16,7 @@ export function DefaultBar() {
         xAxis: {
             type: 'category', 
             axisTick: { show: false }, 
-            axisLabel: { show: false }, 
+            // axisLabel: { show: false }, 
             splitLine: { show: false }, 
             data: ['a', 'b', 'c', 'd', 'e']
         }, 
@@ -30,7 +30,9 @@ export function DefaultBar() {
             type: 'bar', 
             data: [1, 3, 2, 4, 1], 
             emphasis: { focus: 'series' }, 
-            itemStyle: { color: '#91cc75' }
+            itemStyle: { color: '#91cc75' }, 
+            universalTransition: true,
+            animationDurationUpdate: 1000
         }]
     }
 }
@@ -66,7 +68,9 @@ export function DefaultLine() {
             type: 'line', 
             data: [1, 3, 2, 4, 1], 
             itemStyle: { color: '#91cc75' },
-            areaStyle: {}
+            areaStyle: {}, 
+            universalTransition: true,
+            animationDurationUpdate: 1000
         }]
     }
 }
@@ -100,7 +104,9 @@ export function DefaultPie() {
                     shadowOffsetX: 0, 
                     shadowColor: 'rgba(0, 0, 0, 0.5)'
                 }
-            }
+            }, 
+            universalTransition: true,
+            animationDurationUpdate: 1000
         }]
     }
 }

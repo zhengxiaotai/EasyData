@@ -1,5 +1,20 @@
 <template>
     <div class="menu">
+        <input type="file" accept=".page" id="preset" style="display: none" @change="loadPreset()">
+        <el-tooltip content="页面设计/生成" placement="bottom">
+            <span class="menu-item active">
+                <svg t="1642647347050" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8243" width="22" height="22"><path d="M149.333333 800h128c29.866667 0 53.333333-23.466667 53.333334-53.333333V533.333333c0-29.866667-23.466667-53.333333-53.333334-53.333333H149.333333c-29.866667 0-53.333333 23.466667-53.333333 53.333333v213.333334c0 29.866667 23.466667 53.333333 53.333333 53.333333z m10.666667-256h106.666667v192h-106.666667v-192zM448 800h128c29.866667 0 53.333333-23.466667 53.333333-53.333333V149.333333c0-29.866667-23.466667-53.333333-53.333333-53.333333h-128c-29.866667 0-53.333333 23.466667-53.333333 53.333333v597.333334c0 29.866667 23.466667 53.333333 53.333333 53.333333z m10.666667-640h106.666666v576h-106.666666v-576zM874.666667 309.333333h-128c-29.866667 0-53.333333 23.466667-53.333334 53.333334v384c0 29.866667 23.466667 53.333333 53.333334 53.333333h128c29.866667 0 53.333333-23.466667 53.333333-53.333333V362.666667c0-29.866667-23.466667-53.333333-53.333333-53.333334z m-10.666667 426.666667h-106.666667v-362.666667h106.666667v362.666667zM896 853.333333H128c-17.066667 0-32 14.933333-32 32S110.933333 917.333333 128 917.333333h768c17.066667 0 32-14.933333 32-32S913.066667 853.333333 896 853.333333z" p-id="8244" fill="#666666"></path></svg>
+            </span>
+        </el-tooltip>
+        <el-tooltip content="Excel可视化" placement="bottom">
+            <span class="menu-item">
+                <router-link to="/excel">
+                <svg t="1642647062215" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6614" width="22" height="22"><path d="M832 96H192c-35.2 0-64 28.8-64 64v704c0 35.2 28.8 64 64 64h640c35.2 0 64-28.8 64-64V160c0-35.2-28.8-64-64-64zM192 416h640v192H192v-192z m640-256v192H192V160h640zM192 864v-192h640v192H192z" p-id="6615" fill="#666666"></path><path d="M288 256m-32 0a32 32 0 1 0 64 0 32 32 0 1 0-64 0Z" p-id="6616" fill="#666666"></path><path d="M288 512m-32 0a32 32 0 1 0 64 0 32 32 0 1 0-64 0Z" p-id="6617" fill="#666666"></path><path d="M288 768m-32 0a32 32 0 1 0 64 0 32 32 0 1 0-64 0Z" p-id="6618" fill="#666666"></path></svg>
+                </router-link>
+            </span>
+        </el-tooltip>
+        <span class="menu-separator"></span>
+
         <el-tooltip content="打开预设" placement="bottom">
             <span class="menu-item" @click="openPreset()">
                 <svg t="1642581939189" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1117" width="22" height="22"><path d="M896 384V320H608a128 128 0 0 1-102.4-51.2L448 192H128v192h768z m0 64H128v384h768V448zM128 128h315.328a64 64 0 0 1 50.112 24.192l63.36 79.616A64 64 0 0 0 606.848 256H896a64 64 0 0 1 64 64v512a64 64 0 0 1-64 64H128a64 64 0 0 1-64-64V192a64 64 0 0 1 64-64z" p-id="1118" fill="#666666"></path></svg>
@@ -13,14 +28,6 @@
         <el-tooltip content="导出页面" placement="bottom">
             <span class="menu-item" @click="exportCurrent()">
                 <svg t="1642581997761" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6103" width="22" height="22"><path d="M894.6 532.3c-17.5 0-31.7 14.2-31.7 31.7v251c0 23.3-19 42.3-42.3 42.3H203.7c-23.3 0-42.3-19-42.3-42.3V233.7c0-23.3 19-42.3 42.3-42.3h270.7c17.5 0 31.7-14.2 31.7-31.7S492 128 474.4 128H203.7C145.4 128 98 175.4 98 233.7V815c0 58.3 47.4 105.7 105.7 105.7h616.9c58.3 0 105.7-47.4 105.7-105.7V564c0-17.5-14.2-31.7-31.7-31.7z" p-id="6104" fill="#666666"></path><path d="M253.1 688.9c98.5-93.2 197.9-237.3 373.7-228 12.4 0.7 22.1 10.4 22.1 22.9v61c-0.1 19.2 22.2 29.9 37.1 17.8l227.9-184.3c11.3-9.1 11.3-26.4-0.1-35.5L687 138.8c-14.9-12-38.1-1.4-38.2 17.7v61.8c0 11.6-7.9 20-19.3 22.6-302.5 69-379 423.6-376.4 448z" p-id="6105" fill="#666666"></path></svg>
-            </span>
-        </el-tooltip>
-        <input type="file" id="preset" style="display: none" @change="loadPreset()">
-        <el-tooltip content="连接数据库" placement="bottom">
-            <span class="menu-item">
-                <router-link to="/excel">
-                <svg t="1642647062215" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6614" width="22" height="22"><path d="M832 96H192c-35.2 0-64 28.8-64 64v704c0 35.2 28.8 64 64 64h640c35.2 0 64-28.8 64-64V160c0-35.2-28.8-64-64-64zM192 416h640v192H192v-192z m640-256v192H192V160h640zM192 864v-192h640v192H192z" p-id="6615" fill="#666666"></path><path d="M288 256m-32 0a32 32 0 1 0 64 0 32 32 0 1 0-64 0Z" p-id="6616" fill="#666666"></path><path d="M288 512m-32 0a32 32 0 1 0 64 0 32 32 0 1 0-64 0Z" p-id="6617" fill="#666666"></path><path d="M288 768m-32 0a32 32 0 1 0 64 0 32 32 0 1 0-64 0Z" p-id="6618" fill="#666666"></path></svg>
-                </router-link>
             </span>
         </el-tooltip>
     </div>
@@ -654,7 +661,7 @@ export default {
                 }
                 saveData.push(temp)
             }
-            saveAs(new Blob([JSON.stringify([saveData, this.rowHeight])], {type: 'text/plain; charset=utf-8'}), 'saved-file.dv')
+            saveAs(new Blob([JSON.stringify([saveData, this.rowHeight])], {type: 'text/plain; charset=utf-8'}), 'saved-file.page')
         }, 
         openPreset() {
             var file = document.getElementById("preset")
@@ -816,6 +823,7 @@ export default {
         border-bottom: #E0E0E0 1px solid;
         box-shadow: #F0F0F0 0 2px 8px;
         background-color: #FFFFFF;
+        line-height: 30px;
     }
     .menu .menu-item {
         display: inline-block;
@@ -826,6 +834,7 @@ export default {
         border: #F0F0F0 1px solid;
         border-radius: 4px;
         margin: 0 3px;
+        vertical-align: top;
     }
     .menu .menu-item:hover {
         border: #E0E0E0 1px solid;
@@ -833,5 +842,18 @@ export default {
     }
     .menu .menu-item .icon {
         margin-top: 3px;
+    }
+    .menu .menu-item.active {
+        background-color: #E0E0E0;
+        border: #D0D0D0 1px solid;
+    }
+    .menu-separator {
+        display: inline-block;
+        height: 30px;
+        width: 0;
+        line-height: 30px;
+        width: 1px;
+        border-left: #E0E0E0 1px solid;
+        margin: 0 8px;
     }
 </style>
