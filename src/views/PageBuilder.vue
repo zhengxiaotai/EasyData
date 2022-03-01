@@ -39,8 +39,11 @@
                     v-for="(cell, j) in this.rowList[i]" 
                     v-bind:key="j" 
                     :style="{width: cell.width + '%'}" 
-                    :id="cell.id"
-                    @click="active(i, j)">
+                    :id="cell.id" draggable="true"
+                    @click="active(i, j)" 
+                    @dragstart="dragStart($event, i, j)" 
+                    @drop="drop($event, i, j)"
+                    @dragover.prevent @dragenter.prevent>
 
                         <data-chart v-if="cell.type == 'bar'" :chartName="cell.name" :option="cell.option"></data-chart>
                         <data-chart v-else-if="cell.type == 'line'" :chartName="cell.name" :option="cell.option"></data-chart>
@@ -692,6 +695,23 @@ export default {
                         }
                     }
                 })
+            }
+        }, 
+        dragStart(e, row, col) {
+            e.dataTransfer.setData('row', row)
+            e.dataTransfer.setData('col', col)
+        }, 
+        drop(e, row, col) {
+            var r = e.dataTransfer.getData('row')
+            var c = e.dataTransfer.getData('col')
+            this.rowList[row].splice(col, 0, this.rowList[r][c])
+            if (row == r && col < c) {
+                c = (parseInt(c) + 1).toString()
+            }
+            this.rowList[r].splice(c, 1)
+            this.justifyWidth(row, true)
+            if (row != r) {
+                this.justifyWidth(r, true)
             }
         }
     }
